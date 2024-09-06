@@ -12,9 +12,9 @@ export default function Header() {
                 <Image src={logoImg} alt="logo" width={120} height={100} />
                 <nav className={styles.navigation}>
                     <ul>
-                        <li>Home</li>
-                        <li>Sobre</li>
-                        <li>Contato</li>
+                        <li><Link href="/">Home</Link></li>
+                        <li><Link href="#sobre">Sobre</Link></li>
+                        <li><Link href="#contato">Contato</Link></li>
                     </ul>
                     <button className={styles.button}>
                        <Link href="/login">

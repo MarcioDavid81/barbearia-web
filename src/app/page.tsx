@@ -1,7 +1,8 @@
+import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import { nunito } from "./fonts";
-import { Flex, Text } from "@chakra-ui/react";
+import styles from "./styles.module.scss";
 
 export default function Home() {
   return (
@@ -9,10 +10,16 @@ export default function Home() {
       <div>
         <Header />
         <Hero />
-        <div>
-          <h1>Nossos Serviços</h1>
+        <section id="sobre" className={styles.sobreContainer}>
+          <h1>Seção Sobre</h1>
           <p>Aqui você vai encontrar os melhores profissionais </p>
-        </div>
+        </section>
+
+        <section id="contato" className={styles.contatoContainer}>
+          <h1>Seção Contato</h1>
+          <p>Entre em contato conosco para mais informações</p>
+        </section>
+        <Footer />
       </div>
     </>
   );
