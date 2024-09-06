@@ -1,0 +1,48 @@
+.heroContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1300px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1.5;
+    padding: 0 1rem;
+    background-image: url(../../assets/hero.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+    h1{
+        color: #fff;
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+    }
+    p{
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 1rem;
+    }
+    a{
+        display: inline-block;
+        padding: 1rem 2rem;
+        background-color: #333;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s;
+        &:hover{
+            background-color: #555;
+        }
+    }   
+}

@@ -1,0 +1,35 @@
+.headerContainer{
+    height: 110px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #1b1c29;
+    box-shadow: 10px 5px 10px (0, 0, 0, 0.5);
+}
+
+.headerContent{
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigation{
+    display: flex;
+    align-items: center;
+}
+
+.navigation ul li{
+    list-style: none;
+    display: inline-block;
+    margin-right: 40px;
+    color: aliceblue;
+}
+
+.button{
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: orange;
+    
+}
