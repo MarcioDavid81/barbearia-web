@@ -2,7 +2,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { nunito } from "../../fonts";
 
 export default function Hero() {
@@ -64,11 +63,28 @@ export default function Hero() {
                         </motion.p>
                     </div>
 
-                        <Link href="https://wa.link/fyvd8f" target='_blank'>
-                                <button className={nunito.className}>
+                        <motion.a
+                            href="https://wa.link/fyvd8f"
+                            target='_blank'
+                            initial={{
+                                opacity: 0,
+                                y: -50,
+                            }}
+                            whileInView={{
+                                opacity: 1,
+                                y: 0,
+                                transition: {
+                                    duration: 1,
+                                    delay: 1,
+                                },
+                            }}
+                        >
+                                <button 
+                                    className={nunito.className}
+                                >
                                     Entre em contato agora mesmo, e solicite uma demonstração
                                 </button>
-                        </Link>
+                        </motion.a>
 
                 </div>
             </motion.section>
