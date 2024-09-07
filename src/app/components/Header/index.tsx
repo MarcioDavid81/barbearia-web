@@ -1,28 +1,81 @@
 
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import Image from 'next/image';
 import logoImg from '../../assets/logo.png';
 import styles from './styles.module.scss';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function Header() {
+
+    const [scrolled, setScrolled] = useState(false);
+
+    const [scrollProgress, setScrollProgress] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+
+            const scrollY = window.scrollY || window.scrollY;
+            const documentHeight =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;    
+            const progress = (scrollY / documentHeight) * 100;
+            setScrollProgress(progress);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+
+    },  []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollTop = window.scrollY;
+            if (scrollTop > 10) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+
+    }, []);
+
     return (
-        <header className={styles.headerContainer}>
+        <motion.header
+            className={`${styles.headerContainer}
+            ${scrolled ? styles.scrolled: ""}`}
+            initial={{ y: -100 }}
+            whileInView={{ y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className={styles.headerContent}>
-                <Image src={logoImg} alt="logo" width={120} height={100} />
+                <Link href="/">
+                    <Image src={logoImg} alt="logo" width={120} height={100} />
+                </Link>
                 <nav className={styles.navigation}>
                     <ul>
                         <li><Link href="/">Home</Link></li>
                         <li><Link href="#sobre">Sobre</Link></li>
                         <li><Link href="#contato">Contato</Link></li>
                     </ul>
-                    <button className={styles.button}>
-                       <Link href="/login">
-                        LOGIN
+           
+                       <Link href="/login" className={styles.button}>
+                        <button>
+                            LOGIN
+                        </button>
                        </Link>
-                    </button>
+            
                 </nav>
             </div>
-        </header>
+        </motion.header>
     );
 }

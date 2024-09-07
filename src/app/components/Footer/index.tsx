@@ -29,18 +29,18 @@ export default function Footer() {
                         </button>
                     </nav>
                 </div>
-                <div>
+                <div className={styles.social}>
                     <h3>Siga nossas redes sociais</h3>
                     <ul className={styles.footerSocial}>
-                        <li><Link href="https://www.facebook.com"><FaFacebook size={40} /></Link></li>
-                        <li><Link href="https://www.instagram.com"><FaInstagram size={40} /></Link></li>
-                        <li><Link href="https://www.twitter.com"><FaTwitter size={40} /></Link></li>
+                        <li><Link href="https://www.facebook.com" target='_blank'><FaFacebook size={40} /></Link></li>
+                        <li><Link href="https://www.instagram.com" target='_blank'><FaInstagram size={40} /></Link></li>
+                        <li><Link href="https://www.twitter.com" target='_blank'><FaTwitter size={40} /></Link></li>
                     </ul>
                 </div>
             </div>
         </footer>
         <div>
-            <p className={styles.footerCopy}>&copy; 2021 - Todos os direitos reservados</p>
+            <p className={styles.footerCopy}>&copy; 2024 - Todos os direitos reservados</p>
         </div>
         </>
     );
