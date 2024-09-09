@@ -9,24 +9,6 @@ export default function Hero() {
         <>
             <motion.section
                 className={styles.heroContainer}
-                initial={{
-                    opacity: 0,
-                    x: -100,
-                }}
-                whileInView={{
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                        duration: 1,
-                    },
-                }}
-                exit={{
-                    opacity: 0,
-                    x: 100,
-                    transition: {
-                        duration: 1,
-                    },
-                }}
             >
                 <div className={styles.heroContent} >
                     <div className={styles.heroText}>
@@ -68,15 +50,13 @@ export default function Hero() {
                             target='_blank'
                             initial={{
                                 opacity: 0,
-                                y: -50,
+                                scale: 0.5,
                             }}
                             whileInView={{
                                 opacity: 1,
-                                y: 0,
+                                scale: 1,
                                 transition: {
-                                    duration: 1,
-                                    delay: 1,
-                                },
+                                    duration: 1,                                },
                             }}
                         >
                                 <button 

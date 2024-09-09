@@ -9,13 +9,14 @@ import logoImg from "../assets/logo.png"
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 
-export default function Login() {
+export default function Register() {
 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleLogin() {
-        alert("Usuário: " + email + " Senha: " + password);
+    function handleRegister() {
+        alert("Nome: " + name + " Email: " + email + " Senha: " + password);
     }
 
     return (
@@ -27,14 +28,15 @@ export default function Login() {
                 transition={{ duration: 1 }}
             >
                 <Image src={logoImg} alt="Logo" width={200} height={200} />
-                <h1 className={nunito.className}>Login</h1>
+                <h1 className={nunito.className}>Cadastre-se</h1>
                 <form className={styles.form}>
-                    <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail (e.target.value)} />
-                    <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword (e.target.value)} />
-                    <button type="submit" onClick={handleLogin}>Entrar</button>
+                    <input type="text" placeholder="Barbearia" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <button type="submit" onClick={handleRegister}>Cadastrar</button>
                 </form>
-                <Link href="/register">
-                    <button className={styles.cadastro}>Não tem uma conta? <strong> Cadastre-se já!</strong></button>
+                <Link href="/login">
+                    <button className={styles.cadastro}>Já tem uma conta? <strong> Faça Login!</strong></button>
                 </Link>
                 <Link href="/">
                     <button className={styles.comebackButon}><IoArrowBackCircleOutline />Voltar</button>

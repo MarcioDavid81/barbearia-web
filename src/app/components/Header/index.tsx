@@ -10,27 +10,6 @@ export default function Header() {
 
     const [scrolled, setScrolled] = useState(false);
 
-    const [scrollProgress, setScrollProgress] = useState(0);
-
-    useEffect(() => {
-        const handleScroll = () => {
-
-            const scrollY = window.scrollY || window.scrollY;
-            const documentHeight =
-                document.documentElement.scrollHeight -
-                document.documentElement.clientHeight;    
-            const progress = (scrollY / documentHeight) * 100;
-            setScrollProgress(progress);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-
-    },  []);
-
     useEffect(() => {
         const handleScroll = () => {
             const scrollTop = window.scrollY;
