@@ -18,8 +18,8 @@ export default function Login() {
     async function handleLogin() {
         await signIn({
             email,
-            password
-        });
+            password,
+        })
     }
 
     return(

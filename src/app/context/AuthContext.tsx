@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useState } from "react";
 import { destroyCookie, setCookie } from "nookies";
-import Router from "next/router";
 import { api } from "../../services/apiClient";
+import { useRouter } from "next/navigation";
+import Router from "next/router";
 
 interface AuthContextData {
     user: UserProps;
@@ -48,6 +49,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const [user, setUser] = useState<UserProps>();
 
+    const router = useRouter();
+
     const isAuthenticated = !!user;
 
     async function signIn({ email, password }: SignInProps) {
@@ -61,7 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             setCookie(undefined, "@barber.token", token, {
                 maxAge: 60 * 60 * 24 * 30, // 30 days
-                path: "/",
+                path: "/"
             })
 
             setUser({
@@ -72,12 +75,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 subscriptions
             });
 
-            api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            api.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
-            Router.push("/dashboard");
+            console.log("login efetuado com sucesso")
 
-        } catch (err) {
-            console.log("Errooooou fdp", err)
+            // Router.push("/dashboard");
+            router.push("/dashboard");
+
+        }catch(err) {
+            console.log("erro ao entrar", err)
         }
 
     }
