@@ -8,6 +8,8 @@ interface AuthContextData {
     user: UserProps;
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
+    signUp: (credentials: SignUpProps) => Promise<void>;
+    logoutUser: () => Promise<void>;
 }
 
 interface UserProps {
@@ -28,6 +30,12 @@ type AuthProviderProps = {
 }
 
 interface SignInProps {
+    email: string;
+    password: string;
+}
+
+interface SignUpProps {
+    name: string;
     email: string;
     password: string;
 }
@@ -79,17 +87,49 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
             console.log("login efetuado com sucesso")
 
+            alert("Login efetuado com sucesso");
+
             // Router.push("/dashboard");
             router.push("/dashboard");
 
         }catch(err) {
             console.log("erro ao entrar", err)
+
+            alert("Erro ao entrar, tente novamente");
         }
 
     }
 
+    async function signUp({ name, email, password }: SignUpProps) {
+        try {
+            const response = await api.post("/users", {
+                name,
+                email,
+                password
+            })
+
+            router.push("/login");
+            alert("Cadastro efetuado com sucesso");
+
+        } catch(err) {
+            console.log("erro ao cadastrar", err)
+            alert("Erro ao cadastrar, tente novamente");
+        }
+
+    }
+
+    async function logoutUser() {
+        try{
+            destroyCookie(null, "@barber.token", {path: "/"});
+            router.push("/login");
+            setUser(null);
+        } catch(err) {
+            console.log("erro ao sair", err)
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser }}>
             {children}
         </AuthContext.Provider>
     );

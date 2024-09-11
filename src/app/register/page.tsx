@@ -1,21 +1,28 @@
 "use client"
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import logoImg from "../assets/logo.png";
 import { Flex, Text, Button, Input, Center } from "@chakra-ui/react";
 import Link from "next/link";
 import styles from "./styles.module.scss";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Register() {
+
+    const { signUp } = useContext(AuthContext);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    function handleRegister() {
-        console.log(name, email, password);
+    async function handleRegister() {
+        if(name === "" || email === "" || password === "") {
+            alert("Preencha todos os campos!");
+            return;
+        }
 
+        await signUp({name, email, password});
     }
 
 
