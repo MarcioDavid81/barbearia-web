@@ -6,6 +6,9 @@ import logoImg from '../../assets/logo.png';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 export default function Footer() {
+
+    const ano = new Date().getFullYear();
+
     return (
         <>
         <footer className={styles.footerContainer}>
@@ -40,7 +43,7 @@ export default function Footer() {
             </div>
         </footer>
         <div>
-            <p className={styles.footerCopy}>&copy; 2024 - Todos os direitos reservados</p>
+            <p className={styles.footerCopy}>&copy; {ano} - Todos os direitos reservados</p>
         </div>
         </>
     );
