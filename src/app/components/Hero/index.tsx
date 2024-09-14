@@ -50,19 +50,18 @@ export default function Hero() {
                             target='_blank'
                             initial={{
                                 opacity: 0,
-                                scale: 0.5,
                             }}
                             whileInView={{
                                 opacity: 1,
-                                scale: 1,
                                 transition: {
-                                    duration: 1,                                },
+                                    duration: 3,
+                                },
                             }}
                         >
-                                <button 
+                                <button
                                     className={nunito.className}
                                 >
-                                    Entre em contato agora mesmo, e solicite uma demonstração
+                                    <span className={styles.heroButton}>Entre em contato agora mesmo, e solicite uma demonstração</span>
                                 </button>
                         </motion.a>
 

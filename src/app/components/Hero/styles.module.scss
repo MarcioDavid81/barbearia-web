@@ -43,3 +43,15 @@
         }
     }   
 }
+
+@media(max-width: 530px){
+    .heroButton{
+        font-size: 0.8rem;
+    }
+}
+
+@media(max-width: 420px){
+    .heroButton{
+        font-size: 0.7rem;
+    }
+}
