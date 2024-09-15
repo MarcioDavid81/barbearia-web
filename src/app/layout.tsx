@@ -4,7 +4,11 @@ import { Providers } from './providers'
 
 
 export const metadata: Metadata = {
-  title: "Barber Schedule",
+  title: { 
+    absolute: "",
+    default: "Barber Schedule",
+    template: "%s | Barber Schedule",
+   },
   description: "A agenda on line da sua barbearia",
 };
 

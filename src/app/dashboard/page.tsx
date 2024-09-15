@@ -7,9 +7,14 @@ import { AuthContext } from "../context/AuthContext";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import Link from "next/link";
 import { Sidebar } from "../components/Sidebar";
+import { Metadata } from "next";
 
 
+const metadata: Metadata = {
+    title: "Dashboard",
+}
 export default function Dashboard() {
+
 
     const { logoutUser } = useContext(AuthContext);
 
