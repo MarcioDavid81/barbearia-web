@@ -143,7 +143,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     async function logoutUser() {
         try{
             destroyCookie(null, "@barber.token", {path: "/"});
-            router.push("/login");
+            router.push("/");
             setUser(null);
         } catch(err) {
             console.log("erro ao sair", err)
