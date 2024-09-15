@@ -5,6 +5,7 @@ import { AuthTokenErrors } from "../services/errors/AuthTokenErrors";
 export function canSSRAuth<P>(fn: GetServerSideProps<P>){
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
+    
     const token = cookies['@barber.token'];
 
     if (!token) {
@@ -18,13 +19,13 @@ export function canSSRAuth<P>(fn: GetServerSideProps<P>){
 
     try {
       return await fn(ctx);
-    } catch (error) {
-      if (error instanceof AuthTokenErrors) {
+    } catch (err) {
+      if (err instanceof AuthTokenErrors) {
         destroyCookie(ctx, '@barber.token', {path: '/'});
 
         return {
           redirect: {
-            destination: '/login',
+            destination: '/',
             permanent: false,
           }
         }

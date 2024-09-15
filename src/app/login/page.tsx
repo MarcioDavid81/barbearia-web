@@ -16,6 +16,12 @@ export default function Login() {
     const [password, setPassword] = useState("");
 
     async function handleLogin() {
+
+        if(email === "" || password === "") {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
         await signIn({
             email,
             password,

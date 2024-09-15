@@ -1,5 +1,6 @@
 .headerContainer{
     height: 110px;
+    padding: 0 20px;
     width: 100%;
     overflow: hidden;
     background-color: transparent;
@@ -42,13 +43,15 @@
 }
 
 .button{
-    width: 120px;
+    width: 130px;
     height: 40px;
     border-radius: 8px;
     background-color: orange;
+    padding: 0 2px;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 5px;
     transition: all 0.5s;
     border: none;
 
@@ -58,6 +61,12 @@
         border: 1px solid orange;
     }
     
+}
+
+@media(max-width: 900px){
+    .navigation ul li{
+        margin-right: 20px;
+    }
 }
 
 @media(max-width: 768px){

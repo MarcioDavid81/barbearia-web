@@ -14,3 +14,28 @@
     font-weight: 600;
     margin-bottom: 1rem;
 }
+
+.linkHome{
+    margin-top: 2rem;
+}
+
+.buttonLogout{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: orange;
+    color: #1c1d29;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover{
+        background-color: #1c1d29;
+        color: orange;
+        border: 1px solid orange;
+    }
+}

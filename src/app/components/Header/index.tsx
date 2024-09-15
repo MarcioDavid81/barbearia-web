@@ -5,6 +5,7 @@ import logoImg from '../../assets/logo.png';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { FaUserLock } from 'react-icons/fa';
 
 export default function Header() {
 
@@ -47,9 +48,10 @@ export default function Header() {
                         <li><Link href="#contato">Contato</Link></li>
                     </ul>
            
-                       <Link href="/login" className={styles.button}>
-                        <button>
-                            LOGIN
+                       <Link href="/login" >
+                        <button className={styles.button}>
+                            <FaUserLock />
+                            DASHBOARD
                         </button>
                        </Link>
             

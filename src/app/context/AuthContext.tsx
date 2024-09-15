@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useState } from "react";
-import { destroyCookie, setCookie } from "nookies";
+import { createContext, ReactNode, useState, useEffect } from "react";
+import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../../services/apiClient";
 import { useRouter } from "next/navigation";
-import Router from "next/router";
 
 interface AuthContextData {
     user: UserProps;
@@ -43,10 +42,13 @@ interface SignUpProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function SignOut() {
+
+    const router = useRouter();
+
     console.log("error logout")
     try{
         destroyCookie(null, "@barber.token", {path: "/"});
-        Router.push("/login");
+        router.push("/login");
     }catch(err){
         console.log("error logout")
 
@@ -60,6 +62,26 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const router = useRouter();
 
     const isAuthenticated = !!user;
+
+    useEffect(() => {
+        const { "@barber.token": token } = parseCookies();
+
+        if(token) { // se o token for valido, ele vai pegar os dados do usuario e efetuar o login
+            api.get("/me").then(response => {
+                const { id, name, email, adress, subscriptions } = response.data;
+
+                setUser({
+                    id,
+                    name,
+                    email,
+                    adress,
+                    subscriptions
+                });
+            }).catch(() => { // se der erro no token, ele vai deslogar
+                SignOut();
+            });
+        }
+    }, []);
 
     async function signIn({ email, password }: SignInProps) {
         try {
