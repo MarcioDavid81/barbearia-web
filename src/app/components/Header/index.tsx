@@ -6,8 +6,11 @@ import styles from './styles.module.scss';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { FaUserLock } from 'react-icons/fa';
+import { useAuth } from '@/app/context/AuthContext';
 
 export default function Header() {
+
+    const { user } = useAuth();
 
     const [scrolled, setScrolled] = useState(false);
 
@@ -51,7 +54,7 @@ export default function Header() {
                        <Link href="/login" >
                         <button className={styles.button}>
                             <FaUserLock />
-                            DASHBOARD
+                            {user ? "DASHBOARD" : "LOGIN"}
                         </button>
                        </Link>
             

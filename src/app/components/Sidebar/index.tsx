@@ -18,7 +18,6 @@ import { IconType } from "react-icons";
 import Link from "next/link";
 import { AuthContext } from "@/app/context/AuthContext";
 import { useAuth } from "@/app/context/AuthContext";
-import { MdBorderColor } from "react-icons/md";
 
 interface LinkItemProps {
     name: string;
