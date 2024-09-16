@@ -2,6 +2,7 @@ import { createContext, ReactNode, useState, useEffect } from "react";
 import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../../services/apiClient";
 import { useRouter } from "next/navigation";
+import { useToast } from '@chakra-ui/react'
 
 interface AuthContextData {
     user: UserProps;
@@ -9,6 +10,7 @@ interface AuthContextData {
     signIn: (credentials: SignInProps) => Promise<void>;
     signUp: (credentials: SignUpProps) => Promise<void>;
     logoutUser: () => Promise<void>;
+    dataUser: () => Promise<void>;
 }
 
 interface UserProps {
@@ -150,8 +152,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    async function dataUser() {
+        try {
+            const response = await api.get("/me");
+
+            const { id, name, email, adress, subscriptions } = response.data;
+
+            setUser({
+                id,
+                name,
+                email,
+                adress,
+                subscriptions
+            });
+
+        } catch(err) {
+            console.log("erro ao pegar dados", err)
+        }
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser, dataUser }}>
             {children}
         </AuthContext.Provider>
     );

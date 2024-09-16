@@ -1,11 +1,10 @@
-import { Children, ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { 
     IconButton, 
     Box,
     CloseButton,
     Flex,
     Drawer,
-    DrawerOverlay,
     DrawerContent,
     useColorModeValue,
     Text,
@@ -14,11 +13,10 @@ import {
     FlexProps,
     Icon
 } from "@chakra-ui/react";
-import { FiMenu, FiScissors, FiSettings, FiClipboard } from "react-icons/fi";
+import { FiMenu, FiScissors, FiSettings, FiClipboard, FiLogOut } from "react-icons/fi";
 import { IconType } from "react-icons";
 import Link from "next/link";
-import logoImg from '../../assets/logo.png';
-import Image from "next/image";
+import { AuthContext } from "@/app/context/AuthContext";
 
 interface LinkItemProps {
     name: string;
@@ -26,9 +24,11 @@ interface LinkItemProps {
     href: string;
 }
 
+
+
 const linkItens: Array<LinkItemProps> = [
-    {name: 'Agenda', icon: FiScissors, href: '/dashboard'},
-    {name: 'Cortes', icon: FiClipboard, href: '/haircuts'},
+    {name: 'Agenda', icon: FiClipboard, href: '/dashboard'},
+    {name: 'Cortes', icon: FiScissors, href: '/haircuts'},
     {name: 'Minha Conta', icon: FiSettings, href: '/profile'},
 ]
 
@@ -40,7 +40,8 @@ export function Sidebar({children}: {children: ReactNode}) {
         <Box minH={100} bg="black">
             <SidebarContent 
                 onClose={() => onClose}
-                display={{base: "none", md: "block"}}    
+                display={{base: "none", md: "block"}}
+                color="orange"
             />
 
             <Drawer
@@ -56,6 +57,7 @@ export function Sidebar({children}: {children: ReactNode}) {
                     <SidebarContent 
                         onClose={() => onClose()}
                         display={{base: "block", md: "none"}}
+                        color="orange"
                     />
                 </DrawerContent>
 
@@ -74,9 +76,17 @@ export function Sidebar({children}: {children: ReactNode}) {
 interface SidebarProps {
     onClose: () => void;
     display: BoxProps["display"];
+    color: string;
 }
 
 const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
+
+    const { dataUser, logoutUser } = useContext(AuthContext);
+
+    async function handleLogout() {
+        await logoutUser();
+    }
+
     return(
         <Box
             bg="black"
@@ -97,7 +107,7 @@ const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
             >
                 <Link href="/dashboard">
                     <Flex cursor="pointer" userSelect="none" flexDirection="row">
-                        <Text fontSize="1.5xl" color="white">Barbearia Vidal</Text>
+                        <Text fontSize="xl" color="white">Barbearia Vidal</Text>
                     </Flex>
                 </Link>
                 <CloseButton
@@ -111,6 +121,30 @@ const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
                     {link.name}
                 </NavItem>
             ))}
+
+            <Box 
+                position={"fixed"}
+                bottom="8"
+                w="full"
+                display="flex"
+                alignItems={"center"}
+
+            >
+                <Text fontSize="xl" color="white" ml="8" my="4">Logout</Text>
+                <IconButton
+                    ml="4"
+                    onClick={handleLogout}
+                    icon={<FiLogOut color="#1c1d29" fontSize={20} /> }
+                    variant="outline"
+                    aria-label="open menu"
+                    borderColor={"transparent"}
+                    backgroundColor={"orange"}
+                    _hover={{
+                        bg: "gray.200",
+                        borderColor: "#1c1d29",
+                    }}
+                />
+            </Box>
 
         </Box>
     )
@@ -141,9 +175,9 @@ const NavItem = ({icon, children, route, ...rest}: NavItemProps) => {
             {icon && (
                 <Icon 
                     mr={4}
-                    fontSize="16"
+                    fontSize="20"
                     as={icon} 
-                    color="gray.400"
+                    color="orange"
                     _groupHover={{
                         color: "white"
                     }}
@@ -155,7 +189,7 @@ const NavItem = ({icon, children, route, ...rest}: NavItemProps) => {
     )
 }
 
-interface MobileProps {
+interface MobileProps extends FlexProps {
     onOpen: () => void;
 }
 
@@ -175,7 +209,7 @@ const MobileNav = ({onOpen}: MobileProps) => {
             <IconButton
                 display={{base: "flex", md: "none"}}
                 onClick={onOpen}
-                icon={<FiMenu color="white"/>}
+                icon={<FiMenu color="orange" fontSize={30} />}
                 variant="outline"
                 aria-label="open menu"
             />
