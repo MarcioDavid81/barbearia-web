@@ -17,6 +17,8 @@ import { FiMenu, FiScissors, FiSettings, FiClipboard, FiLogOut } from "react-ico
 import { IconType } from "react-icons";
 import Link from "next/link";
 import { AuthContext } from "@/app/context/AuthContext";
+import { useAuth } from "@/app/context/AuthContext";
+import { MdBorderColor } from "react-icons/md";
 
 interface LinkItemProps {
     name: string;
@@ -81,7 +83,9 @@ interface SidebarProps {
 
 const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
 
-    const { dataUser, logoutUser } = useContext(AuthContext);
+    const { logoutUser } = useContext(AuthContext);
+
+    const { user } = useAuth();
 
     async function handleLogout() {
         await logoutUser();
@@ -98,7 +102,6 @@ const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
             display={display}
             {...rest}
         >
-
             <Flex
                 h="20"
                 alignItems="center"
@@ -106,9 +109,9 @@ const SidebarContent = ({onClose, display, ...rest}: SidebarProps) => {
                 mx="8"
             >
                 <Link href="/dashboard">
-                    <Flex cursor="pointer" userSelect="none" flexDirection="row">
-                        <Text fontSize="xl" color="white">Barbearia Vidal</Text>
-                    </Flex>
+                    <Text fontSize="2xl" color="orange" ml="2">Olá,</Text>
+                    {user? <Text fontSize="lg" color="white" ml="2"> {user.name}</Text> : null}
+                  
                 </Link>
                 <CloseButton
                     display={{base: 'flex', md: 'none'}}
@@ -194,6 +197,9 @@ interface MobileProps extends FlexProps {
 }
 
 const MobileNav = ({onOpen}: MobileProps) => {
+
+    const { user } = useAuth();
+
     return(
         <Flex
             ml={{base: 0, md: 60}}
@@ -215,7 +221,8 @@ const MobileNav = ({onOpen}: MobileProps) => {
             />
 
             <Flex flex={{base: 1, md: "auto"}} ml={8} display="flex" alignItems="center">
-                <Text ml="4" fontSize="2xl" color="white">Barbearia Vidal</Text>
+                <Text fontSize="2xl" color="orange">Olá,</Text>
+                {user? <Text fontSize="2xl" color="white" ml="2"> {user.name}</Text> : null}
             </Flex>
 
         </Flex>

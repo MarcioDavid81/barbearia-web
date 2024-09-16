@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
+import { createContext, ReactNode, useState, useEffect, useContext } from "react";
 import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../../services/apiClient";
 import { useRouter } from "next/navigation";
-import { useToast } from '@chakra-ui/react'
 
 interface AuthContextData {
     user: UserProps;
@@ -171,9 +170,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    useEffect(() => {
+        dataUser();
+    }, []);
+
     return (
         <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser, dataUser }}>
             {children}
         </AuthContext.Provider>
     );
+}
+
+export const useAuth = () => {
+    return useContext(AuthContext);
 }
