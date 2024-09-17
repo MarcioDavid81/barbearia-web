@@ -4,6 +4,7 @@ import { Box, Flex, Heading, Text, Input, Button } from '@chakra-ui/react'
 import { Sidebar } from '../components/Sidebar'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
+import { setupAPIClient } from '@/services/api'
 
 
 export default function Profile() {
@@ -14,7 +15,24 @@ export default function Profile() {
     const [adress, setAdress] = useState("")
 
     async function handleSave(){
-        console.log(name, adress)
+       
+        if(name === "") {
+            return alert("Nome não pode ser vazio")
+        }
+
+        try{
+            const apiClient = setupAPIClient()
+            await apiClient.put('/users', {
+                name: name,
+                adress: adress,
+            })
+
+            alert("Dados atualizados com sucesso")
+
+        } catch(err){
+            console.log(err)
+        }
+
     }
 
   return (
