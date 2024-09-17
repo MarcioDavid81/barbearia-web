@@ -11,8 +11,8 @@ export default function Profile() {
 
     const { user } = useContext(AuthContext)
 
-    const [name, setName] = useState("")
-    const [adress, setAdress] = useState("")
+    const [name, setName] = useState(user && user?.name)
+    const [adress, setAdress] = useState(user?.adress ? user?.adress : "")
 
     async function handleSave(){
        
@@ -96,7 +96,7 @@ export default function Profile() {
                             <Text 
                                 p={2}
                                 fontSize="lg"
-                                color={"green"}
+                                color={user?.subscriptions?.status === "premium" ? "orange" : "green"}
                             >
                                 Plano: {user?.subscriptions?.status === "premium" ? "Premium" : "Grátis"}
                             </Text>
@@ -108,8 +108,10 @@ export default function Profile() {
                                     pr={2}
                                     fontSize="md"
                                     rounded={6}
-                                    backgroundColor={"#00cd52"}
-                                    color={"#1c1d29"}
+                                    // backgroundColor={"#00cd52"}
+                                    // color={"#1c1d29"}
+                                    backgroundColor={user?.subscriptions?.status === "premium" ? "orange" : "green"}
+                                    color={user?.subscriptions?.status === "premium" ? "#1c1d29" : "white"}
                                 >
                                     Mudar plano
                                 </Box>
