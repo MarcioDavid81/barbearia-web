@@ -43,7 +43,7 @@ export default function Profile() {
             <Flex h="100vh" direction="column" alignItems="flex-start" justifyContent="flex-start" backgroundColor="#1c1d29">
                 <Flex w="100%" direction="row" alignItems="flex-start" justifyContent="flex-start"
                 >
-                    <Heading mt="4" mb="4" ml="4" fontSize={isMobile ? "2xl" : "3xl"} color="orange">Minha Conta</Heading>
+                    <Heading mt="4" mb="4" ml="4" fontSize="3xl" color="orange">Minha Conta</Heading>
                 </Flex>
                 <Flex 
                     pb={8} pt={8} ml="4"

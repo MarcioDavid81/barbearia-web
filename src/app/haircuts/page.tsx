@@ -1,11 +1,12 @@
 "use client"
-import Link from "next/link";
 import { Sidebar } from "../components/Sidebar";
-import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery } from "@chakra-ui/react";
+import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery, Link } from "@chakra-ui/react";
+import { FiScissors } from "react-icons/fi";
+import { IoMdPricetag } from "react-icons/io";
 
 export default function Haircuts() {
 
-    const [isMobile] = useMediaQuery("(max-width: 850px)");
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return(
         <>
@@ -15,12 +16,14 @@ export default function Haircuts() {
                         <Heading mt="4" mb="4" ml="4" mr={"4"} fontSize={isMobile ? "2xl" : "3xl"} color="orange">
                             Modelos de Corte
                         </Heading>
-                        <Link href={"/heircuts/new"}>
+                        <Link href={"/haircuts/new"}>
                             <Button 
                                 size={isMobile ? "sm" : "md"}
                                 ml={4}
+                                colorScheme={"gray"}
                             >
-                                Adicionar Corte
+                                <FiScissors size={30} color="orange" />
+                                Adicionar
                             </Button>
                         </Link>
                         <Stack direction={"row"} alignItems={"center"} justifyContent={"center"} ml={"auto"} mr={4}>
@@ -28,6 +31,34 @@ export default function Haircuts() {
                             <Switch colorScheme="green" size="lg" ml={4} />
                         </Stack>
                     </Flex>
+
+                        <Link href={"/haircuts/123"} w={"100%"} p={2}>
+                            <Flex
+                                cursor={"pointer"}
+                                w={"93%"}
+                                p={2}
+                                bg={"barber.900"}
+                                direction={"row"}
+                                rounded={6}
+                                m={4}
+                                justifyContent="space-between"
+                            >
+                                <Flex gap={2}>
+                                    <IoMdPricetag size={30} color={"orange"} />
+
+                                    <Text color={"white"} noOfLines={1}>
+                                        Corte Degradê
+                                    </Text>
+
+                                </Flex>
+
+                                <Text color={"white"}>
+                                    Preço: R$ 50,00
+                                </Text>
+
+                            </Flex>
+                        </Link>
+
                 </Flex>
             </Sidebar>
         </>
