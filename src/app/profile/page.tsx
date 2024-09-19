@@ -3,18 +3,18 @@ import React, { useContext, useState } from 'react'
 import { Box, Flex, Heading, Text, Input, Button, useMediaQuery } from '@chakra-ui/react'
 import { Sidebar } from '../components/Sidebar'
 import Link from 'next/link'
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext, useAuth } from '../context/AuthContext'
 import { setupAPIClient } from '@/services/api'
 
 
 export default function Profile() {
 
-    const [isMobile] = useMediaQuery("(max-width: 850px)")
+    // const { user } = useContext(AuthContext)
 
-    const { user } = useContext(AuthContext)
+    const { user } = useAuth();
 
-    const [name, setName] = useState(user && user?.name)
-    const [adress, setAdress] = useState(user?.adress ? user?.adress : "")
+    const [name, setName] = useState(user?.name)
+    const [adress, setAdress] = useState(user?.adress)
 
     async function handleSave(){
        
@@ -67,7 +67,7 @@ export default function Profile() {
                             type='text'
                             color="barber.100"
                             mb={3}
-                            value={user?.name}
+                            value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                         <Text mb={2} mt={4} fontSize="xl" color="white">Endereço:</Text>
@@ -79,7 +79,7 @@ export default function Profile() {
                             type='text'
                             color="barber.100"
                             mb={3}
-                            value={user?.adress}
+                            value={adress}
                             onChange={(e) => setAdress(e.target.value)}
                         />
                         <Text mb={2} mt={4} fontSize="xl" color="white">Plano atual:</Text>

@@ -2,7 +2,6 @@
 import { Sidebar } from "../../components/Sidebar";
 import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery, Link, Input } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
-import { IoMdPricetag } from "react-icons/io";
 
 export default function Haircuts() {
 
