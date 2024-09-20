@@ -59,11 +59,7 @@ export function SignOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
 
     const [user, setUser] = useState<UserProps>();
-
-    const [countCortes, setCountCortes] = useState(0);
-
-    const maxCortes = 3;
-
+    
     const router = useRouter();
 
     const isAuthenticated = !!user;
@@ -178,34 +174,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         dataUser();
     }, []);
 
-    const countCortesUser = async ({id}: UserProps) => {
-        try{
-            const response = await api.get("/haircuts/count",{
-                params: {
-                    id: id
-                }
-            });
-
-            const { count } = response.data;
-
-            setCountCortes(count);
-
-            return response.data;
-
-        } catch(err) {
-            console.log("Não achei nada fdp, acerta esse código", err)
-        }
-    }
-
-    const isLimited = (count: number) => {
-        return count >= maxCortes;
-    }
-
-    useEffect(() => {
-        if(user){
-            countCortesUser(user);
-        }
-    }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser, dataUser }}>

@@ -3,6 +3,8 @@ import { useAuth } from "@/app/context/AuthContext";
 import { Sidebar } from "../../components/Sidebar";
 import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery, Link, Input } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { api } from "@/services/apiClient";
 
 export default function Haircuts() {
 
@@ -11,6 +13,24 @@ export default function Haircuts() {
     const { user } = useAuth();
 
     const premium = user?.subscriptions?.status === "premium";
+
+    const maxHaircuts = premium ? 10 : 0;
+
+    const [data, setData] = useState([]);
+
+    const userHaircut = async () => {
+        try {
+            const response = await api.get("/haircuts/count");
+
+            setData(response.data);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(() => {
+        userHaircut();
+    }, []);
 
     return(
         <>
@@ -42,6 +62,7 @@ export default function Haircuts() {
                             color={"white"}
                             bg={"#1b1c29"}
                             mb={4}
+                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
                         />
                         <Input
                             placeholder="Valor do corte"
@@ -51,6 +72,7 @@ export default function Haircuts() {
                             color={"white"}
                             bg={"#1b1c29"}
                             mb={5}
+                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
                         />
                         <Button
                             w={"85%"}
@@ -60,11 +82,15 @@ export default function Haircuts() {
                             size={"md"}
                             _hover={{ bg: "#1c1d29", borderColor: "orange", borderWidth: 1, color: "orange" }}
                             onClick={() => alert("Corte cadastrado com sucesso!")}
-                            {...premium ? {isDisabled: false} : {isDisabled: true}}
-                            {...premium ? "" : {title: "Vire Pro e cadastre os seus cortes!"}}
+                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
                         >
                             Salvar
                         </Button>
+                        <Flex w={"85%"} alignItems={"center"} justifyContent={"space-between"}>
+                            <Text fontSize={isMobile ? "sm" : "md"} color="white" mb={4}>
+                                {data.length < maxHaircuts ? `Você ainda pode cadastrar ${maxHaircuts + data.length} modelos de corte` : `Você atingiu o limite de modelos de corte cadastrados. Torne-se Premium para cadastrar mais modelos.`}
+                            </Text>
+                        </Flex>
                     </Flex>
 
 
