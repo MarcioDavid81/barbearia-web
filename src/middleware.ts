@@ -27,5 +27,5 @@ export default function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/login", "/dashboard", "/profile", "/haircuts"],
+    matcher: ["/login", "/dashboard", "/profile", "/haircuts/:path*"],
 }

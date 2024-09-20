@@ -57,7 +57,7 @@ export default function Login() {
                     <Input
                         background={"default"}
                         placeholder="******"
-                        type="text"
+                        type="password"
                         variant={"filled"}
                         size={"lg"}
                         mb={6}

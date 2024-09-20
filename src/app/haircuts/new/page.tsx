@@ -1,4 +1,5 @@
 "use client"
+import { useAuth } from "@/app/context/AuthContext";
 import { Sidebar } from "../../components/Sidebar";
 import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery, Link, Input } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
@@ -6,6 +7,10 @@ import { FiChevronLeft } from "react-icons/fi";
 export default function Haircuts() {
 
     const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+    const { user } = useAuth();
+
+    const premium = user?.subscriptions?.status === "premium";
 
     return(
         <>
@@ -55,6 +60,8 @@ export default function Haircuts() {
                             size={"md"}
                             _hover={{ bg: "#1c1d29", borderColor: "orange", borderWidth: 1, color: "orange" }}
                             onClick={() => alert("Corte cadastrado com sucesso!")}
+                            {...premium ? {isDisabled: false} : {isDisabled: true}}
+                            {...premium ? "" : {title: "Vire Pro e cadastre os seus cortes!"}}
                         >
                             Salvar
                         </Button>
