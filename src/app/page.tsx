@@ -8,7 +8,6 @@ import Image from "next/image";
 import prodImg from "./assets/produtividade.jpg";
 import agendaImg from "./assets/agenda.jpg";
 import atrasoImg from "./assets/atrasos.jpg";
-import { motion } from "framer-motion";
 import { nunito } from "./fonts";
 
 export default function Home() {

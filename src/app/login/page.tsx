@@ -7,6 +7,7 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { AuthContext } from "../context/AuthContext";
+import { motion } from "framer-motion";
 
 export default function Login() {
 
@@ -32,6 +33,11 @@ export default function Login() {
         <>
         
             <Flex background="barber.400" height="100vh" alignItems="center" justifyContent="center">
+                <motion.div
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1 }}
+                >
                 <Flex width={640} direction="column" p={14} rounded={8}>
                     <Center p={4}>
                         <Image src={logoImg} alt="Logo" width={200} height={200} quality={100} objectFit="fill" />
@@ -97,6 +103,7 @@ export default function Login() {
                     </Center>
 
                 </Flex>
+                </motion.div>
             </Flex>
 
         </>

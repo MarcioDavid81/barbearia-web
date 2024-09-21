@@ -32,32 +32,31 @@ export default function Haircuts() {
                         </Stack>
                     </Flex>
 
-                        <Link href={"/haircuts/123"} w={"100%"} p={2}>
-                            <Flex
-                                cursor={"pointer"}
-                                w={"93%"}
-                                p={2}
-                                bg={"barber.900"}
-                                direction={"row"}
-                                rounded={6}
-                                m={4}
-                                justifyContent="space-between"
-                            >
-                                <Flex gap={2}>
-                                    <IoMdPricetag size={30} color={"orange"} />
-
-                                    <Text color={"white"} noOfLines={1}>
-                                        Corte Degradê
-                                    </Text>
-
-                                </Flex>
-
-                                <Text color={"white"}>
-                                    Preço: R$ 50,00
+                    <Link href={"/haircuts/123"} w={"100%"} p={2}>
+                        <Flex
+                            cursor={"pointer"}
+                            w={"93%"}
+                            p={2}
+                            bg={"barber.900"}
+                            direction={"row"}
+                            rounded={6}
+                            m={4}
+                            justifyContent="space-between"
+                        >
+                            <Flex gap={2}>
+                                <IoMdPricetag size={30} color={"orange"} />
+                                <Text color={"white"} noOfLines={1}>
+                                    Corte Degradê
                                 </Text>
 
                             </Flex>
-                        </Link>
+
+                            <Text color={"white"}>
+                                Preço: R$ 50,00
+                            </Text>
+
+                        </Flex>
+                    </Link>
 
                 </Flex>
             </Sidebar>
