@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { poppins } from "./fonts";
 import { Providers } from './providers'
+import styles from "./styles.module.scss";
 
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" className={styles.html}>
       <body className={poppins.className}>
       <Providers>
 
