@@ -2,6 +2,7 @@ import { createContext, ReactNode, useState, useEffect, useContext } from "react
 import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../../services/apiClient";
 import { useRouter } from "next/navigation";
+import { data } from "framer-motion/client";
 
 interface AuthContextData {
     user: UserProps;
@@ -59,6 +60,8 @@ export function SignOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
 
     const [user, setUser] = useState<UserProps>();
+
+    const [count , setCount] = useState(0);
     
     const router = useRouter();
 
@@ -173,6 +176,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         dataUser();
     }, []);
+
 
 
     return (

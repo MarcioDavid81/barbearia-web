@@ -1,36 +1,77 @@
 "use client"
 import { useAuth } from "@/app/context/AuthContext";
 import { Sidebar } from "../../components/Sidebar";
-import { Button, Flex, Heading, Stack, Switch, Text, useMediaQuery, Link, Input } from "@chakra-ui/react";
+import { Button, Flex, Heading, Text, useMediaQuery, Link, Input } from "@chakra-ui/react";
 import { FiChevronLeft } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { api } from "@/services/apiClient";
 
-export default function Haircuts() {
+
+export default function NewHaircut() {
 
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     const { user } = useAuth();
 
-    const premium = user?.subscriptions?.status === "premium";
+    const subscription = user?.subscriptions?.status === "premium" ? true : false
 
-    const maxHaircuts = premium ? 10 : 0;
+    // const maxHaircuts = premium ? 100 : 1;
 
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
-    const userHaircut = async () => {
+    const [name , setName] = useState("");
+    const [price, setPrice] = useState("");
+
+
+    //Função para requisitar da API a quantidade de cortes cadastrados pelo usuário e se o usuário é premium
+    const userSubscription = async () => {
         try {
-            const response = await api.get("/haircuts/count");
 
-            setData(response.data);
+            const response = await api.get("/haircut/check");
+            const count = await api.get("/haircut/count");
+
+           return{
+                props: {
+                    subscription: response.data?.subscriptions?.status === "premium" ? true : false,
+                    count: count.data
+                }
+           }
         } catch (error) {
             console.log(error)
         }
     };
 
-    useEffect(() => {
-        userHaircut();
-    }, []);
+    // useEffect(() => {
+    //     userHaircut();
+    // }, []);
+
+
+    //Função para cadastrar um novo corte
+    async function handleRegister() {
+
+        if(name === "" || price === "") {
+            return;
+        }
+
+        try{
+            await api.post("/haircut", {
+                name: name,
+                price: Number(price),
+            });
+
+            alert("Corte cadastrado com sucesso");
+
+            setName("");
+            setPrice("");
+
+        } catch(err) {
+            console.log(err);
+            alert("Erro ao cadastrar corte");
+
+            setName("");
+            setPrice("");
+        }
+    }
 
     return(
         <>
@@ -38,9 +79,13 @@ export default function Haircuts() {
                 <Flex h="100vh" direction="column" alignItems="flex-start" justifyContent="flex-start" backgroundColor="#1c1d29">
                     <Flex direction={isMobile ? "column" : "row"} w={"100%"} alignItems={isMobile ? "flex-start" : "center"}    justifyContent={"flex-start"} mb={0} mt={4}>
 
-                        <Link href="/haircuts" ml={4} >
-                            <Button p={4} display={"flex"} alignItems={"center"} justifyContent={"center"} size={isMobile ? "sm" : "md"} colorScheme={"gray"}>
-                                <FiChevronLeft size={30} color={"orange"} />
+                        <Link href={"/haircuts"}>
+                            <Button 
+                                size={isMobile ? "sm" : "md"}
+                                ml={4}
+                                colorScheme={"gray"}
+                            >
+                                <FiChevronLeft size={30} color="orange" />
                                 Voltar
                             </Button>
                         </Link>
@@ -62,7 +107,10 @@ export default function Haircuts() {
                             color={"white"}
                             bg={"#1b1c29"}
                             mb={4}
-                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            // isDisabled={!premium && userHaircut.length === maxHaircuts}
+                            isDisabled={!subscription}
                         />
                         <Input
                             placeholder="Valor do corte"
@@ -72,7 +120,10 @@ export default function Haircuts() {
                             color={"white"}
                             bg={"#1b1c29"}
                             mb={5}
-                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            // isDisabled={!premium && data.length === maxHaircuts}
+                            isDisabled={!subscription}
                         />
                         <Button
                             w={"85%"}
@@ -81,16 +132,38 @@ export default function Haircuts() {
                             bg={"orange"}
                             size={"md"}
                             _hover={{ bg: "#1c1d29", borderColor: "orange", borderWidth: 1, color: "orange" }}
-                            onClick={() => alert("Corte cadastrado com sucesso!")}
-                            {...data.length >= maxHaircuts ? {isDisabled: true} : {isDisabled: false}}
+                            onClick={handleRegister}
+                            // isDisabled={!premium && data.length === maxHaircuts}
+                            isDisabled={!subscription}
                         >
                             Salvar
                         </Button>
-                        <Flex w={"85%"} alignItems={"center"} justifyContent={"space-between"}>
-                            <Text fontSize={isMobile ? "sm" : "md"} color="white" mb={4}>
-                                {data.length < maxHaircuts ? `Você ainda pode cadastrar ${maxHaircuts + data.length} modelos de corte` : `Você atingiu o limite de modelos de corte cadastrados. Torne-se Premium para cadastrar mais modelos.`}
-                            </Text>
-                        </Flex>
+                        {/* {!premium && data.length === maxHaircuts && (
+                            <Flex direction={"row"} align={"center"} justifyContent={"center"}>
+                                <Text fontSize={"md"} color={"white"}>
+                                    Você atingiu o limite de cortes.
+                                </Text>
+                                <Link href="/planos" ml={2}>
+                                    <Text fontSize={"md"} fontWeight={"bold"} color={"orange"}>
+                                        Seja Premium.
+                                    </Text>
+                                </Link>
+                            </Flex>
+                        )} */}
+
+                            {!subscription &&  (
+                                <Flex direction={"row"} align={"center"} justifyContent={"center"}>
+                                    <Text fontSize={"md"} color={"white"}>
+                                        Você não pode cadastrar cortes.
+                                    </Text>
+                                    <Link href="/planos" ml={2}>
+                                        <Text fontSize={"md"} fontWeight={"bold"} color={"orange"}>
+                                            Seja Premium.
+                                        </Text>
+                                    </Link>
+                                </Flex>
+                            )}
+
                     </Flex>
 
 
