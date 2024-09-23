@@ -2,7 +2,6 @@ import { createContext, ReactNode, useState, useEffect, useContext } from "react
 import { destroyCookie, setCookie, parseCookies } from "nookies";
 import { api } from "../../services/apiClient";
 import { useRouter } from "next/navigation";
-import { data } from "framer-motion/client";
 
 interface AuthContextData {
     user: UserProps;
@@ -10,7 +9,6 @@ interface AuthContextData {
     signIn: (credentials: SignInProps) => Promise<void>;
     signUp: (credentials: SignUpProps) => Promise<void>;
     logoutUser: () => Promise<void>;
-    dataUser: () => Promise<void>;
 }
 
 interface UserProps {
@@ -60,8 +58,6 @@ export function SignOut() {
 export function AuthProvider({ children }: AuthProviderProps) {
 
     const [user, setUser] = useState<UserProps>();
-
-    const [count , setCount] = useState(0);
     
     const router = useRouter();
 
@@ -154,33 +150,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
-    async function dataUser() {
-        try {
-            const response = await api.get("/me");
-
-            const { id, name, email, adress, subscriptions } = response.data;
-
-            setUser({
-                id,
-                name,
-                email,
-                adress,
-                subscriptions
-            });
-
-        } catch(err) {
-            console.log("erro ao pegar dados", err)
-        }
-    }
-
-    useEffect(() => {
-        dataUser();
-    }, []);
-
-
-
+    
+    
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser, dataUser }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signIn, signUp, logoutUser }}>
             {children}
         </AuthContext.Provider>
     );

@@ -32,8 +32,8 @@ export default function Haircuts() {
                         </Stack>
                     </Flex>
 
-                    <Link href={"/haircuts/123"} w={"100%"} p={2}>
-                        <Flex
+                        <Link href={"/haircuts/122"} w={"100%"} p={2}>
+                            <Flex
                             cursor={"pointer"}
                             w={"93%"}
                             p={2}
@@ -42,21 +42,21 @@ export default function Haircuts() {
                             rounded={6}
                             m={4}
                             justifyContent="space-between"
-                        >
-                            <Flex gap={2}>
-                                <IoMdPricetag size={30} color={"orange"} />
-                                <Text color={"white"} noOfLines={1}>
-                                    Corte Degradê
+                            >
+                                <Flex gap={2}>
+                                    <IoMdPricetag size={30} color={"orange"} />
+                                    <Text color={"white"} noOfLines={1}>
+                                        Raspa Piolho
+                                    </Text>
+
+                                </Flex>
+
+                                <Text color={"white"}>
+                                    Preço: R$ 150,00
                                 </Text>
 
                             </Flex>
-
-                            <Text color={"white"}>
-                                Preço: R$ 50,00
-                            </Text>
-
-                        </Flex>
-                    </Link>
+                        </Link>
 
                 </Flex>
             </Sidebar>

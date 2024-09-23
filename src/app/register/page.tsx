@@ -30,13 +30,9 @@ export default function Register() {
     return(
         <>
         
-            <Flex background="barber.400" min-height="100vh" alignItems="center" justifyContent="center">
-            <motion.div
-                    initial={{ scale: 0.5 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 1 }}
-                >
-                <Flex width={640} direction="column" p={14} rounded={8}>
+            <Flex background="barber.400" height="100vh" alignItems="center" justifyContent="center" p={4}>
+
+                <Flex width={640} direction="column" pl={14} pr={14} py={4} rounded={8} bg={"black"}>
                     <Center p={4}>
                         <Image src={logoImg} alt="Logo" width={200} height={200} quality={100} objectFit="fill" />
                     </Center>
@@ -113,7 +109,7 @@ export default function Register() {
                     </Center>
 
                 </Flex>
-                </motion.div>
+
             </Flex>
 
         </>
