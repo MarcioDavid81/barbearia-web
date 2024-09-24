@@ -79,7 +79,7 @@ export default function NewHaircut() {
                 <Flex h="100vh" direction="column" alignItems="flex-start" justifyContent="flex-start" backgroundColor="#1c1d29">
                     <Flex direction={isMobile ? "column" : "row"} w={"100%"} alignItems={isMobile ? "flex-start" : "center"}    justifyContent={"flex-start"} mb={0} mt={4}>
 
-                        <Link href={"/haircuts"}>
+                        <Link href={"/haircuts"} style={{textDecoration: "none"}}>
                             <Button 
                                 size={isMobile ? "sm" : "md"}
                                 ml={4}
